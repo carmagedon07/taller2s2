@@ -7,6 +7,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String operaciones = "Valor de la operacion";
+  String resultadoOperaciones = "5555555";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,8 +24,9 @@ class _HomePageState extends State<HomePage> {
         Expanded(
           child: Container(
               //color: Colors.red,
-
-              ),
+              child: Row(
+            children: [Text(resultadoOperaciones)],
+          )),
         ),
         Container(
           //color: Colors.blue,
@@ -70,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                           operaciones += "/";
                         });
                       },
-                      child: Text("/"))
+                      child: Text(" / "))
                 ],
               ),
               Row(
@@ -99,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                           operaciones += "x";
                         });
                       },
-                      child: Text("x"))
+                      child: Text(" x "))
                 ],
               ),
               Row(
@@ -129,10 +131,10 @@ class _HomePageState extends State<HomePage> {
                   ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          operaciones += "-";
+                          operaciones += " - ";
                         });
                       },
-                      child: Text("-"))
+                      child: Text(" - "))
                 ],
               ),
               Row(
@@ -147,9 +149,40 @@ class _HomePageState extends State<HomePage> {
                       child: Text("0")),
                   ElevatedButton(
                       onPressed: () {
-                        setState(() {
-                          operaciones = "";
-                        });
+                        print(operaciones);
+                        var result = operaciones.split("");
+
+                        if (result[1].trim() == "+") {
+                          var resulta =
+                              (int.parse(result[0]) + int.parse(result[2]));
+                          setState(() {
+                            resultadoOperaciones = "$resulta";
+                          });
+                        }
+
+                        if (result[1].trim() == "-") {
+                          var resulta =
+                              (int.parse(result[0]) - int.parse(result[2]));
+                          setState(() {
+                            resultadoOperaciones = "$resulta";
+                          });
+                        }
+
+                        if (result[1].trim() == "x") {
+                          var resulta =
+                              (int.parse(result[0]) * int.parse(result[2]));
+                          setState(() {
+                            resultadoOperaciones = "$resulta";
+                          });
+                        }
+
+                        if (result[1].trim() == "/") {
+                          var resulta =
+                              (int.parse(result[0]) / int.parse(result[2]));
+                          setState(() {
+                            resultadoOperaciones = "$resulta";
+                          });
+                        }
                       },
                       child: Text("c")),
                   ElevatedButton(
@@ -162,7 +195,7 @@ class _HomePageState extends State<HomePage> {
                   ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          operaciones = "+";
+                          operaciones = " + ";
                         });
                       },
                       child: Text("+"))
